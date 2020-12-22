@@ -1,6 +1,7 @@
 package com.codeup.listology.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,21 +11,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
     @GetMapping("/users")
-    @ResponseBody
     public String viewUserIndex() {
-        return "view users index";
+        return "users/index";
     }
 
     @GetMapping("/users/{id}")
-    @ResponseBody
-    public String viewUser(@PathVariable long id) {
-        return "view user profile";
+    public String viewUser(@PathVariable long id, Model model) {
+        return "users/user";
     }
 
     @GetMapping("/users/create")
-    @ResponseBody
     public String viewCreateUser() {
-        return "view user creation form";
+        return "users/create";
     }
 
     @PostMapping("/users/create")

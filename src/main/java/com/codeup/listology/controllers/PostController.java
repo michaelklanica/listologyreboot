@@ -1,6 +1,7 @@
 package com.codeup.listology.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,21 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PostController {
 
     @GetMapping("/posts")
-    @ResponseBody
     public String viewPostIndex() {
-        return "view post index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String viewPost(@PathVariable long id){
-        return "view post #" + id;
+    public String viewPost(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        return "posts/post";
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String viewCreatePost() {
-        return "view post creation form";
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
