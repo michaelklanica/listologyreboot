@@ -1,12 +1,10 @@
 package com.codeup.listology.controllers;
 
+import com.codeup.listology.models.User;
 import com.codeup.listology.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -28,16 +26,16 @@ public class UserController {
     }
 
     @GetMapping("/users/create")
-    public String viewCreateUser() {
+    public String viewCreateUser(Model model) {
+        model.addAttribute("user", new User());
         return "users/create";
     }
 
     @PostMapping("/users/create")
-    @ResponseBody
-    public String submitUser() {
-        return "submit user creation form";
+    public String submitUser(@ModelAttribute User user) {
+        userDao.save(user);
+        return "users/create";
     }
-
 
 
 

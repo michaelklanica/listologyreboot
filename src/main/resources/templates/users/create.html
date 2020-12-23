@@ -5,8 +5,14 @@
     <title>User Creation Form</title>
 </head>
 <body>
-
 <h1>User Creation Form</h1>
+<form th:action="@{/users/create}" method="post" th:object="${user}">
+    <input type="text" th:field="*{username}">
+    <input type="password" th:field="*{password}">
+    <input type="submit">
+</form>
+
+
 
 </body>
 </html>

@@ -1,20 +1,25 @@
 package com.codeup.listology.controllers;
 
+import com.codeup.listology.models.Post;
+import com.codeup.listology.repos.CategoryRepository;
 import com.codeup.listology.repos.PostRepository;
+import com.codeup.listology.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
+    private final CategoryRepository categoryDao;
 
-    public PostController(PostRepository postDao) {
+
+    public PostController(PostRepository postDao, UserRepository userDao, CategoryRepository categoryDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
+        this.categoryDao = categoryDao;
     }
 
     @GetMapping("/posts")
@@ -29,14 +34,18 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String viewCreatePost() {
+    public String viewCreatePost(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String submitNewPost() {
-        return "submit post creation form";
+    public String submitNewPost(@ModelAttribute Post postToBeSaved) {
+        postToBeSaved.setAuthor(userDao.getOne(1L));
+
+        postToBeSaved.setCategory(categoryDao.getOne(1L));
+        postDao.save(postToBeSaved);
+        return "posts/create";
     }
 
 }

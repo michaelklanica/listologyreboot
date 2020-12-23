@@ -5,8 +5,14 @@
     <title>Post Creation Form</title>
 </head>
 <body>
-
 <h1>Post Creation Form</h1>
+<form th:action="@{/posts/create}" method="post" th:object="${post}">
+    <input type="text" th:field="*{title}">
+    <textarea th:field="*{body}"></textarea>
+    <input type="submit">
+</form>
+
+
 
 </body>
 </html>
