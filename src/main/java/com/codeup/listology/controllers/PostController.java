@@ -20,6 +20,11 @@ public class PostController {
         this.postDao = postDao;
         this.userDao = userDao;
     }
+    @GetMapping("/")
+    public String start(){
+        return "redirect:/posts";
+    }
+
 
     @GetMapping("/posts")
     public String viewPostIndex() {
@@ -29,7 +34,7 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public String viewPost(@PathVariable long id, Model model) {
         model.addAttribute("id", id);
-        return "posts/post";
+        return "posts/show";
     }
 
     @GetMapping("/posts/create")
