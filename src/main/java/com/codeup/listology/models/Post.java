@@ -19,25 +19,20 @@ public class Post {
     @OneToOne
     private User author;
 
-    @OneToOne
-    private Category category;
-
 //    CONSTRUCTORS:
     public Post() {}
 
-    public Post(String title, String body, User author, Category category) {
+    public Post(String title, String body, User author) {
         this.author = author;
-        this.category = category;
         this.title = title;
         this.body = body;
     }
 
-    public Post(long id, String title, String body, User author, Category category) {
+    public Post(long id, String title, String body, User author) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.author = author;
-        this.category = category;
     }
 
 //    GETTERS and SETTERS:
@@ -71,14 +66,6 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public Category getCategory(){
-        return this.category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
 }

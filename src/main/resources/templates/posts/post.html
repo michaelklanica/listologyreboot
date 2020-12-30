@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials :: head(title='Post# ' + ${id})">
     <meta charset="UTF-8" />
     <title>Post</title>
 </head>
 <body>
+<nav th:replace="partials :: navbar"></nav>
 
 <h1>Post #<span th:text="${id}"></span></h1>
 
+<div th:include="partials :: scripts"></div>
 </body>
 </html>

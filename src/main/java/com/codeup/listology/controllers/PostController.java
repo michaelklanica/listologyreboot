@@ -1,7 +1,6 @@
 package com.codeup.listology.controllers;
 
 import com.codeup.listology.models.Post;
-import com.codeup.listology.repos.CategoryRepository;
 import com.codeup.listology.repos.PostRepository;
 import com.codeup.listology.repos.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -13,13 +12,11 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
-    private final CategoryRepository categoryDao;
 
 
-    public PostController(PostRepository postDao, UserRepository userDao, CategoryRepository categoryDao) {
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
         this.userDao = userDao;
-        this.categoryDao = categoryDao;
     }
 
     @GetMapping("/posts")
@@ -43,7 +40,6 @@ public class PostController {
     public String submitNewPost(@ModelAttribute Post postToBeSaved) {
         postToBeSaved.setAuthor(userDao.getOne(1L));
 
-        postToBeSaved.setCategory(categoryDao.getOne(1L));
         postDao.save(postToBeSaved);
         return "posts/create";
     }

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials :: head(title='User Directory')">
     <meta charset="UTF-8" />
     <title>User Index</title>
 </head>
 <body>
+<nav th:replace="partials :: navbar"></nav>
 
 <h1>User Index</h1>
 
+<div th:include="partials :: scripts"></div>
 </body>
 </html>
