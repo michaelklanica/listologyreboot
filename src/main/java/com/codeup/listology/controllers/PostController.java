@@ -1,8 +1,10 @@
 package com.codeup.listology.controllers;
 
 import com.codeup.listology.models.Post;
+import com.codeup.listology.models.User;
 import com.codeup.listology.repos.PostRepository;
 import com.codeup.listology.repos.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +40,33 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String submitNewPost(@ModelAttribute Post postToBeSaved) {
-        postToBeSaved.setAuthor(userDao.getOne(1L));
-
-        postDao.save(postToBeSaved);
-        return "posts/create";
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        postToBeSaved.setAuthor(userDb);
+        Post dbPost = postDao.save(postToBeSaved);
+        return "redirect:/posts/" + dbPost.getId() ;
     }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postDao.deleteById(id);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model viewModel) {
+        viewModel.addAttribute("post", postDao.getOne(id));
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(Post postToBeSaved) {
+        User userDb = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        postToBeSaved.setAuthor(userDb);
+        postDao.save(postToBeSaved);
+        return "redirect:/posts";
+    }
+
+
+
 
 }

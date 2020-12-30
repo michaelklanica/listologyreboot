@@ -20,10 +20,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-item nav-link text-light" th:href="@{/}">Codeup Blog</a>
+                <a class="nav-item nav-link text-light" th:href="@{/posts}">Posts</a>
+                <a class="nav-item nav-link text-light" th:href="@{/posts/create}">Create Posts</a>
+                <a class="nav-item nav-link text-light" th:href="@{/sign-up}">Register</a>
+                <a class="nav-item nav-link text-light" th:href="@{/login}">Login</a>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="btn-link btn" >Logout</button>
+                </form>
             </div>
         </div>
     </div>
